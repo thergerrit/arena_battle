@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dvyufdfabqs4n"]
+
+[ext_resource type="Script" uid="uid://c11bociu71egx" path="res://Scripts/Player/bullet.gd" id="1_oduel"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xjght"]
+load_path = "res://.godot/imported/Bullet.png-856ee3d6309871bf8b23fd74a6771c27.ctex"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oduel"]
+radius = 1.0
+height = 4.0
+
+[node name="Bullet" type="Area2D" unique_id=1108562320]
+collision_layer = 16
+script = ExtResource("1_oduel")
+speed = 75.0
+metadata/_custom_type_script = "uid://cln8ubdb0d0vb"
+
+[node name="DestroyTimer" type="Timer" parent="." unique_id=1854678337]
+wait_time = 3.0
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=461234197]
+texture = SubResource("CompressedTexture2D_xjght")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2048868702]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_oduel")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]

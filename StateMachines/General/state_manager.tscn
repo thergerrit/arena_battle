@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dvtayasevve58"]
+
+[ext_resource type="Script" uid="uid://dw2dj0y36oag0" path="res://Scripts/Enemies/state_manager.gd" id="1_ginsw"]
+
+[node name="StateManager" type="Node" unique_id=545142093]
+script = ExtResource("1_ginsw")

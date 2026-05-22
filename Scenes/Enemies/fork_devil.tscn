@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://dtkrknm6jubnk"]
+
+[ext_resource type="PackedScene" uid="uid://bngns6i36iqp5" path="res://Scenes/Enemies/base_enemy.tscn" id="1_rg3we"]
+[ext_resource type="Texture2D" uid="uid://by8yvqm5tyuqp" path="res://Assets/Enemies/Fork_Devil.png" id="2_go7lb"]
+[ext_resource type="Script" uid="uid://blhgm5qxn8sh0" path="res://Scripts/General/hitbox.gd" id="3_go7lb"]
+[ext_resource type="Script" uid="uid://dw2dj0y36oag0" path="res://Scripts/Enemies/state_manager.gd" id="4_yintd"]
+[ext_resource type="Script" uid="uid://ly3he7ni21be" path="res://StateMachines/States/follow_state.gd" id="5_2afd1"]
+[ext_resource type="Script" uid="uid://dojmdc40yqv6a" path="res://StateMachines/States/wait_state.gd" id="6_2afd1"]
+[ext_resource type="Script" uid="uid://d3splgl2x8hxd" path="res://StateMachines/Enemies/ForkDevil/follow_state_slow_condition_component.gd" id="6_kc2id"]
+[ext_resource type="Script" uid="uid://8ku70e3ujcoi" path="res://StateMachines/Enemies/ForkDevil/dash_state_fast_condition_component.gd" id="7_b511k"]
+[ext_resource type="Script" uid="uid://bhla5e16drosj" path="res://StateMachines/States/dash_state.gd" id="7_d8fol"]
+[ext_resource type="Script" uid="uid://de6ams4v600y7" path="res://StateMachines/Enemies/ForkDevil/wait_state_hit_condition_component.gd" id="8_kc2id"]
+[ext_resource type="Script" uid="uid://cwdm4wuluwdyo" path="res://StateMachines/Enemies/ForkDevil/wait_state_exausted_condition_component.gd" id="11_d8fol"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rg3we"]
+radius = 1.5
+height = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20fwv"]
+radius = 1.5
+
+[node name="ForkDevil" unique_id=2067150244 instance=ExtResource("1_rg3we")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1785037771]
+scale = Vector2(1, 1)
+texture = ExtResource("2_go7lb")
+offset = Vector2(2.5, 0)
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1997616297]
+shape = SubResource("CapsuleShape2D_rg3we")
+
+[node name="CollisionShape2D" parent="Hurtbox" parent_id_path=PackedInt32Array(1863613586) index="0" unique_id=2033732622]
+shape = SubResource("CapsuleShape2D_rg3we")
+
+[node name="HealthComponent" parent="." index="4" unique_id=719895018]
+max_health = 50
+
+[node name="Hitbox" type="Area2D" parent="." index="5" unique_id=1011302703]
+position = Vector2(5.2, 0.5)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_go7lb")
+damage = 2
+metadata/_custom_type_script = "uid://blhgm5qxn8sh0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0" unique_id=832569114]
+shape = SubResource("CircleShape2D_20fwv")
+
+[node name="StateManager" type="Node" parent="." index="6" unique_id=186707148]
+script = ExtResource("4_yintd")
+metadata/_custom_type_script = "uid://dw2dj0y36oag0"
+
+[node name="FollowStateSlow" type="Node" parent="StateManager" index="0" unique_id=1751267008]
+script = ExtResource("5_2afd1")
+stop_distance = 20.0
+speed = 12.0
+id = "slow"
+metadata/_custom_type_script = "uid://ly3he7ni21be"
+
+[node name="ConditionComponent" type="Node" parent="StateManager/FollowStateSlow" index="0" unique_id=1712360144]
+script = ExtResource("6_kc2id")
+i_time = 0.5
+metadata/_custom_type_script = "uid://1if4emmxbavs"
+
+[node name="WaitStateHit" type="Node" parent="StateManager" index="1" unique_id=1163034632]
+script = ExtResource("6_2afd1")
+id = "hit"
+metadata/_custom_type_script = "uid://dojmdc40yqv6a"
+
+[node name="ConditionComponent" type="Node" parent="StateManager/WaitStateHit" index="0" unique_id=438642985]
+script = ExtResource("8_kc2id")
+metadata/_custom_type_script = "uid://1if4emmxbavs"
+
+[node name="Timer" type="Timer" parent="StateManager/WaitStateHit" index="1" unique_id=327318377]
+autostart = true
+
+[node name="DashState" type="Node" parent="StateManager" index="2" unique_id=1532273257]
+script = ExtResource("7_d8fol")
+time = 0.5
+speed = 60.0
+slow_down = 0.1
+id = "fast"
+metadata/_custom_type_script = "uid://bhla5e16drosj"
+
+[node name="ConditionComponent" type="Node" parent="StateManager/DashState" index="0" unique_id=666536126]
+script = ExtResource("7_b511k")
+metadata/_custom_type_script = "uid://1if4emmxbavs"
+
+[node name="Timer" type="Timer" parent="StateManager/DashState" index="1" unique_id=896447749]
+
+[node name="WaitStateExausted" type="Node" parent="StateManager" index="3" unique_id=1786545140]
+script = ExtResource("6_2afd1")
+wait_time = 0.3
+id = "exausted"
+metadata/_custom_type_script = "uid://dojmdc40yqv6a"
+
+[node name="Timer" type="Timer" parent="StateManager/WaitStateExausted" index="0" unique_id=637152997]
+
+[node name="ConditionComponent" type="Node" parent="StateManager/WaitStateExausted" index="1" unique_id=1688442034]
+script = ExtResource("11_d8fol")
+metadata/_custom_type_script = "uid://1if4emmxbavs"
+
+[connection signal="damaged" from="." to="StateManager/FollowStateSlow/ConditionComponent" method="_on_fork_devil_damaged"]
+[connection signal="damaged" from="." to="StateManager/WaitStateHit/ConditionComponent" method="_on_fork_devil_damaged"]
+[connection signal="distance_reached" from="StateManager/FollowStateSlow" to="StateManager/FollowStateSlow/ConditionComponent" method="_on_follow_state_slow_distance_reached"]
+[connection signal="time_out" from="StateManager/WaitStateHit" to="StateManager/WaitStateHit/ConditionComponent" method="_on_wait_state_hit_time_out"]
+[connection signal="timeout" from="StateManager/WaitStateHit/Timer" to="StateManager/WaitStateHit" method="_on_timer_timeout"]
+[connection signal="time_out" from="StateManager/DashState" to="StateManager/DashState/ConditionComponent" method="_on_dash_state_time_out"]
+[connection signal="timeout" from="StateManager/DashState/Timer" to="StateManager/DashState" method="_on_timer_timeout"]
+[connection signal="time_out" from="StateManager/WaitStateExausted" to="StateManager/WaitStateExausted/ConditionComponent" method="_on_wait_state_time_out"]
+[connection signal="timeout" from="StateManager/WaitStateExausted/Timer" to="StateManager/WaitStateExausted" method="_on_timer_timeout"]

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://djv65bfh0ap5x"]
+
+[ext_resource type="Script" uid="uid://cln8ubdb0d0vb" path="res://Scripts/General/bullet_hitbox.gd" id="1_cab2e"]
+
+[node name="BulletHitbox" type="Area2D" unique_id=958200366]
+script = ExtResource("1_cab2e")
+damage = null
+metadata/_custom_type_script = "uid://blhgm5qxn8sh0"

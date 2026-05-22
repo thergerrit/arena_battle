@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dxxfulhb5wrys"]
+
+[ext_resource type="Texture2D" uid="uid://c0dbbywdab2eo" path="res://Assets/Player/Gun.png" id="1_63g8q"]
+[ext_resource type="Script" uid="uid://du2m7fys4xhsd" path="res://Scripts/Player/gun.gd" id="1_oqrbh"]
+[ext_resource type="Script" uid="uid://b0mj4rfc3vgg7" path="res://Scripts/General/node_pool.gd" id="3_t6ynv"]
+[ext_resource type="PackedScene" uid="uid://dvyufdfabqs4n" path="res://Scenes/Player/bullet.tscn" id="4_k4teu"]
+
+[sub_resource type="Animation" id="Animation_mr2kw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g5f2n"]
+resource_name = "Shoot"
+length = 0.245
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(7.450581e-09, 0.033333335, 0.19999996),
+"transitions": PackedFloat32Array(1.3195078, 2.1435468, 2.1435468),
+"update": 0,
+"values": [0.0, -0.24085544, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(7.450581e-09, 0.033333335, 0.2),
+"transitions": PackedFloat32Array(-2, 2.1435468, 2.1435468),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-0.6, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mr2kw"]
+_data = {
+&"RESET": SubResource("Animation_mr2kw"),
+&"Shoot": SubResource("Animation_g5f2n")
+}
+
+[node name="Gun" type="Node2D" unique_id=536028675]
+script = ExtResource("1_oqrbh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1906880818]
+texture = ExtResource("1_63g8q")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1444221593]
+position = Vector2(2, -0.5)
+
+[node name="Bullet_Pool" type="Node" parent="." unique_id=614608025]
+script = ExtResource("3_t6ynv")
+node_scene = ExtResource("4_k4teu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=766738976]
+libraries/ = SubResource("AnimationLibrary_mr2kw")
+speed_scale = 2.0

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c6o7wn4sjuxj2"]
+
+[ext_resource type="Script" uid="uid://bbg3smgbmb4bh" path="res://Scripts/Enemies/test_turret.gd" id="1_f1mia"]
+[ext_resource type="Texture2D" uid="uid://dkg5vvoqd0jpg" path="res://Assets/Enemies/Projectiles/Trident.png" id="2_l80gt"]
+
+[node name="Fork" type="Area2D" unique_id=499649904]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_f1mia")
+metadata/_custom_type_script = "uid://blhgm5qxn8sh0"
+
+[node name="DestroyTimer" type="Timer" parent="." unique_id=1854678337]
+wait_time = 3.0
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=461234197]
+texture = ExtResource("2_l80gt")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1890306026]
+position = Vector2(0, 0.5)
+polygon = PackedVector2Array(-2, -1, -2, 0, 1, 0, 1, 1, 2, 1, 2, -2, 1, -2, 1, -1)
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]

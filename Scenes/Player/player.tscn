@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://bfj630yfoejgn"]
+
+[ext_resource type="Script" uid="uid://dnwpvce5oyl8h" path="res://Scripts/Player/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://pmajf4i7xh57" path="res://Assets/Player/Marshmallow.png" id="2_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://dxxfulhb5wrys" path="res://Scenes/Player/gun.tscn" id="4_mtuoh"]
+[ext_resource type="Script" uid="uid://6eqtty65ghek" path="res://Scripts/General/hurtbox.gd" id="4_vgqql"]
+[ext_resource type="Script" uid="uid://crhlasmoukyyc" path="res://Scripts/Player/weapon_manager.gd" id="5_htcer"]
+[ext_resource type="PackedScene" uid="uid://beasidbsa47wf" path="res://Scenes/Player/sword.tscn" id="6_0u5uq"]
+[ext_resource type="PackedScene" uid="uid://o6wqu8nfhner" path="res://Scenes/Player/mine_thrower.tscn" id="7_0u5uq"]
+[ext_resource type="PackedScene" uid="uid://csj5nj73k3vcy" path="res://Scenes/General/health_component.tscn" id="8_jlvik"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgqql"]
+radius = 1.5
+height = 4.0
+
+[sub_resource type="Animation" id="Animation_jlvik"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gk6dx"]
+resource_name = "hit"
+length = 0.23333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 2, 0.5),
+"update": 0,
+"values": [Color(1, 0.99215686, 0.99607843, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.16666667),
+"transitions": PackedFloat32Array(1, 2, 0.5),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jhyir"]
+_data = {
+&"RESET": SubResource("Animation_jlvik"),
+&"hit": SubResource("Animation_gk6dx")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=1706361584 groups=["player"]]
+z_index = 5
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_cvnsp")
+
+[node name="Pivot" type="Marker2D" parent="." unique_id=708848348]
+unique_name_in_owner = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1700625888]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_vgqql")
+metadata/_custom_type_script = "uid://6eqtty65ghek"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=2142373839]
+shape = SubResource("CapsuleShape2D_vgqql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1918028278]
+shape = SubResource("CapsuleShape2D_vgqql")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1070190138]
+texture = ExtResource("2_6t5aa")
+
+[node name="WeaponManager" type="Node" parent="." unique_id=278949223]
+script = ExtResource("5_htcer")
+
+[node name="Gun" parent="WeaponManager" unique_id=536028675 instance=ExtResource("4_mtuoh")]
+visible = false
+
+[node name="Sword" parent="WeaponManager" unique_id=2064636926 instance=ExtResource("6_0u5uq")]
+visible = false
+
+[node name="MineThrower" parent="WeaponManager" unique_id=150589256 instance=ExtResource("7_0u5uq")]
+visible = false
+quantity = 4
+
+[node name="HealthComponent" parent="." unique_id=998942138 instance=ExtResource("8_jlvik")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2133982954]
+libraries/ = SubResource("AnimationLibrary_jhyir")
+
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
+[connection signal="area_exited" from="Hurtbox" to="Hurtbox" method="_on_area_exited"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

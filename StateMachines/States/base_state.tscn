@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dant37lej4tbq"]
+
+[ext_resource type="Script" uid="uid://bhla5e16drosj" path="res://StateMachines/States/dash_state.gd" id="1_oq4r3"]
+
+[node name="BaseState" type="Node" unique_id=2038200552]
+script = ExtResource("1_oq4r3")
+metadata/_custom_type_script = "uid://b2ryabyvknd4n"
+
+[node name="Timer" type="Timer" parent="." unique_id=79643699]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

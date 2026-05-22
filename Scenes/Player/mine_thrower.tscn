@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://o6wqu8nfhner"]
+
+[ext_resource type="Script" uid="uid://vnnuhcy6iwau" path="res://Scripts/Player/mine_thrower.gd" id="1_ectkc"]
+[ext_resource type="Texture2D" uid="uid://cquoey41v3lqe" path="res://Assets/Player/Mine.png" id="1_vlpct"]
+[ext_resource type="Script" uid="uid://b0mj4rfc3vgg7" path="res://Scripts/General/node_pool.gd" id="2_u02q5"]
+[ext_resource type="PackedScene" uid="uid://dg83bvht55gab" path="res://Scenes/Player/mine.tscn" id="4_qggou"]
+
+[node name="MineThrower" type="Node2D" unique_id=150589256]
+script = ExtResource("1_ectkc")
+quantity = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=989771386]
+texture = ExtResource("1_vlpct")
+region_enabled = true
+region_rect = Rect2(0, 0, 3, 3)
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=49838821]
+position = Vector2(1, 0)
+
+[node name="MinePool" type="Node" parent="." unique_id=1305793124]
+script = ExtResource("2_u02q5")
+node_scene = ExtResource("4_qggou")
+metadata/_custom_type_script = "uid://b0mj4rfc3vgg7"

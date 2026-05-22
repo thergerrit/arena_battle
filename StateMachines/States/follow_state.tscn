@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://be20yugf86l1s"]
+
+[ext_resource type="Script" uid="uid://ly3he7ni21be" path="res://StateMachines/States/follow_state.gd" id="1_npnj7"]
+
+[node name="FollowState" type="Node" unique_id=2044890702]
+script = ExtResource("1_npnj7")
+metadata/_custom_type_script = "uid://b2ryabyvknd4n"

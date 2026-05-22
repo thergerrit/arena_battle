@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bl4c07vng7l5h"]
+
+[ext_resource type="Script" uid="uid://dojmdc40yqv6a" path="res://StateMachines/States/wait_state.gd" id="1_48pxp"]
+
+[node name="WaitState" type="Node" unique_id=2045332917]
+script = ExtResource("1_48pxp")
+metadata/_custom_type_script = "uid://b2ryabyvknd4n"
+
+[node name="Timer" type="Timer" parent="." unique_id=1009666335]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

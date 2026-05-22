@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://bngns6i36iqp5"]
+
+[ext_resource type="Script" uid="uid://6eqtty65ghek" path="res://Scripts/General/hurtbox.gd" id="1_hkymu"]
+[ext_resource type="Script" uid="uid://cjcja82cpupi8" path="res://Scripts/Enemies/base_enemy.gd" id="1_oof5d"]
+[ext_resource type="Texture2D" uid="uid://hh1n5i1hhkrl" path="res://Assets/General/Placehold.png" id="2_t83mw"]
+[ext_resource type="Script" uid="uid://cq23hl7iimac0" path="res://Scripts/General/health_component.gd" id="5_pwtvn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oof5d"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t83mw"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="Animation" id="Animation_oof5d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t83mw"]
+resource_name = "hit"
+length = 0.23333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 2, 1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0.52156866, 0.43529412, 1), Color(0, 0.52156866, 0.43529412, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pwtvn"]
+_data = {
+&"RESET": SubResource("Animation_oof5d"),
+&"hit": SubResource("Animation_t83mw")
+}
+
+[node name="BaseEnemy" type="CharacterBody2D" unique_id=2067150244]
+collision_layer = 4
+script = ExtResource("1_oof5d")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1785037771]
+scale = Vector2(1.0250001, 1.0250001)
+texture = ExtResource("2_t83mw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1997616297]
+shape = SubResource("CapsuleShape2D_oof5d")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1863613586]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_hkymu")
+metadata/_custom_type_script = "uid://6eqtty65ghek"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=2033732622]
+shape = SubResource("CapsuleShape2D_t83mw")
+
+[node name="BaseAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1470748359]
+libraries/ = SubResource("AnimationLibrary_pwtvn")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=719895018]
+script = ExtResource("5_pwtvn")
+max_health = 5
+metadata/_custom_type_script = "uid://cq23hl7iimac0"
+
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]

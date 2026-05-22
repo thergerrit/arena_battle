@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c30w0l3o4clga"]
+
+[ext_resource type="Script" uid="uid://dmwy2cgsjeebs" path="res://Scripts/Player/slash.gd" id="1_ix7i1"]
+[ext_resource type="Texture2D" uid="uid://jsbs88flxtip" path="res://Assets/Player/Slash.png" id="2_kc1o5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oduel"]
+radius = 2.0
+height = 8.0
+
+[node name="Slash" type="Area2D" unique_id=1671944736]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_ix7i1")
+can_pierce = true
+damage = 3
+metadata/_custom_type_script = "uid://cln8ubdb0d0vb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2048868702]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_oduel")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=461234197]
+rotation = 1.5707964
+texture = ExtResource("2_kc1o5")

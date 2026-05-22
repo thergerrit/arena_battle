@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://db00vfv6ib7xd"]
+
+[ext_resource type="Texture2D" uid="uid://b757xb4ywri86" path="res://Assets/Enemies/Devil.png" id="1_1f0kj"]
+[ext_resource type="Script" uid="uid://bbg3smgbmb4bh" path="res://Scripts/Enemies/test_turret.gd" id="1_afpow"]
+[ext_resource type="Script" uid="uid://6eqtty65ghek" path="res://Scripts/General/hurtbox.gd" id="2_afpow"]
+[ext_resource type="Script" uid="uid://b0mj4rfc3vgg7" path="res://Scripts/General/node_pool.gd" id="4_0830c"]
+[ext_resource type="PackedScene" uid="uid://c6o7wn4sjuxj2" path="res://Scenes/Enemies/fork.tscn" id="5_0830c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_287tu"]
+radius = 1.5
+height = 4.0
+
+[node name="Enemy" type="Node2D" unique_id=2125267241]
+script = ExtResource("1_afpow")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1831734695]
+texture = ExtResource("1_1f0kj")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=36895319]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("2_afpow")
+metadata/_custom_type_script = "uid://6eqtty65ghek"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=829807766]
+shape = SubResource("CapsuleShape2D_287tu")
+
+[node name="NodePool" type="Node" parent="." unique_id=471150363]
+script = ExtResource("4_0830c")
+node_scene = ExtResource("5_0830c")
+metadata/_custom_type_script = "uid://b0mj4rfc3vgg7"
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1954958708]
+position = Vector2(1, 0)
+
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

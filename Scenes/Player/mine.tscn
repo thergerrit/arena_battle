@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://dg83bvht55gab"]
+
+[ext_resource type="Script" uid="uid://dp3jy4pf7ge0c" path="res://Scripts/Player/mine.gd" id="1_0pklu"]
+[ext_resource type="Texture2D" uid="uid://cquoey41v3lqe" path="res://Assets/Player/Mine.png" id="2_wvb1x"]
+[ext_resource type="Texture2D" uid="uid://crqf52k4fj6ot" path="res://Assets/Player/Explosion.png" id="3_ntg41"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6hu7"]
+atlas = ExtResource("2_wvb1x")
+region = Rect2(0, 0, 3, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc133"]
+atlas = ExtResource("2_wvb1x")
+region = Rect2(0, 3, 3, 3)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lkb73"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6hu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc133")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_t5jb8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Blow:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprite2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_cbo2y"]
+resource_name = "explode"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.0666667, 1.2),
+"transitions": PackedFloat32Array(1, 2, 1),
+"update": 0,
+"values": [0.5, 3.0, 0.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.0666667, 1.3333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Blow:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.1, 1.3333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.9666667, 1.2333333, 1.3333334),
+"transitions": PackedFloat32Array(1, 1.1486982, 0.4999999),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprite2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.1, 1.3666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.3333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4rewc"]
+_data = {
+&"RESET": SubResource("Animation_t5jb8"),
+&"explode": SubResource("Animation_cbo2y")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o1eru"]
+radius = 5.0
+
+[node name="Mine" type="Area2D" unique_id=1734434444]
+collision_layer = 16
+script = ExtResource("1_0pklu")
+max_speed = null
+owner_group = null
+can_pierce = true
+damage = 5
+metadata/_custom_type_script = "uid://cln8ubdb0d0vb"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=195811951]
+sprite_frames = SubResource("SpriteFrames_lkb73")
+autoplay = "default"
+frame_progress = 0.8493846
+speed_scale = 0.5
+
+[node name="MineAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1374443864]
+libraries/ = SubResource("AnimationLibrary_4rewc")
+
+[node name="Blow" type="CollisionShape2D" parent="." unique_id=234080026]
+shape = SubResource("CircleShape2D_o1eru")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1582661818]
+visible = false
+texture = ExtResource("3_ntg41")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
