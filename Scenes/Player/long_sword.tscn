@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dfnhtain1ghvj"]
+
+[ext_resource type="Script" uid="uid://boqhl70xpvjm8" path="res://Scripts/Player/sword.gd" id="1_h87p7"]
+[ext_resource type="Texture2D" uid="uid://bdcohy5ifbch" path="res://Assets/Player/Sword_Long.png" id="2_lla6r"]
+[ext_resource type="Script" uid="uid://blhgm5qxn8sh0" path="res://Scripts/General/hitbox.gd" id="3_ekkjb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_il57v"]
+radius = 0.5
+height = 4.0
+
+[sub_resource type="Animation" id="Animation_6wdhb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animation/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_d6wag"]
+resource_name = "Slash"
+length = 0.8333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animation/Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333333, 0.31999996, 0.46666667, 0.73333323),
+"transitions": PackedFloat32Array(2, 2, 2, 1),
+"update": 0,
+"values": [0.0, -0.7504915783575618, 0.6527531402458788, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kb2vl"]
+_data = {
+&"RESET": SubResource("Animation_6wdhb"),
+&"Slash": SubResource("Animation_d6wag")
+}
+
+[node name="Sword" type="Node2D" unique_id=2064636926]
+script = ExtResource("1_h87p7")
+
+[node name="Animation" type="Marker2D" parent="." unique_id=1968212353]
+rotation = 1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="Animation" unique_id=2031927931]
+texture = ExtResource("2_lla6r")
+offset = Vector2(0, -1.5)
+
+[node name="Hitbox" type="Area2D" parent="Animation/Sprite2D" unique_id=1167982789]
+script = ExtResource("3_ekkjb")
+metadata/_custom_type_script = "uid://blhgm5qxn8sh0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animation/Sprite2D/Hitbox" unique_id=585788026]
+position = Vector2(0, -2.5)
+shape = SubResource("CapsuleShape2D_il57v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation" unique_id=1724110417]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_kb2vl")
+speed_scale = 3.0

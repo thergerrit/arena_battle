@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dxxfulhb5wrys" path="res://Scenes/Player/gun.tscn" id="4_mtuoh"]
 [ext_resource type="Script" uid="uid://6eqtty65ghek" path="res://Scripts/General/hurtbox.gd" id="4_vgqql"]
 [ext_resource type="Script" uid="uid://crhlasmoukyyc" path="res://Scripts/Player/weapon_manager.gd" id="5_htcer"]
-[ext_resource type="PackedScene" uid="uid://beasidbsa47wf" path="res://Scenes/Player/sword.tscn" id="6_0u5uq"]
+[ext_resource type="PackedScene" uid="uid://dfnhtain1ghvj" path="res://Scenes/Player/long_sword.tscn" id="6_jlvik"]
 [ext_resource type="PackedScene" uid="uid://o6wqu8nfhner" path="res://Scenes/Player/mine_thrower.tscn" id="7_0u5uq"]
 [ext_resource type="PackedScene" uid="uid://csj5nj73k3vcy" path="res://Scenes/General/health_component.tscn" id="8_jlvik"]
 
@@ -100,12 +100,16 @@ texture = ExtResource("2_6t5aa")
 
 [node name="WeaponManager" type="Node" parent="." unique_id=278949223]
 script = ExtResource("5_htcer")
+_weapons = Dictionary[String, NodePath]({
+"slot_0": NodePath("Gun"),
+"slot_1": NodePath(""),
+"slot_2": NodePath("MineThrower")
+})
 
 [node name="Gun" parent="WeaponManager" unique_id=536028675 instance=ExtResource("4_mtuoh")]
 visible = false
 
-[node name="Sword" parent="WeaponManager" unique_id=2064636926 instance=ExtResource("6_0u5uq")]
-visible = false
+[node name="Sword" parent="WeaponManager" unique_id=2064636926 instance=ExtResource("6_jlvik")]
 
 [node name="MineThrower" parent="WeaponManager" unique_id=150589256 instance=ExtResource("7_0u5uq")]
 visible = false
@@ -115,6 +119,11 @@ quantity = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2133982954]
 libraries/ = SubResource("AnimationLibrary_jhyir")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1451638248]
+zoom = Vector2(10, 10)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="area_exited" from="Hurtbox" to="Hurtbox" method="_on_area_exited"]
